@@ -1,6 +1,6 @@
 name: Pets
-author: UniversMakers
-main: UniversMakers\Pets\
+author: PMMPDevs
+main: PMMPDevs\Pets\
 version: "1.0.0"
 api:
 - 1.0.0
