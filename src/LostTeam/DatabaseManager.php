@@ -8,12 +8,12 @@ class DatabaseManager {
         $sql = "CREATE TABLE IF NOT EXISTS Pets(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     PetOwner TEXT NOT NULL,
-                    petId INTEGER NOT NULL,
+                    petName INTEGER NOT NULL,
 		)";
         $this->database->exec($sql);
     }
-    public function makePet($petOwner, $petId) {
-        return $this->database->exec("INSERT INTO Pets (petOwner, petId) VALUES ('$petOwner', $petId)");
+    public function makePet($petOwner, $petName) {
+        return $this->database->exec("INSERT INTO Pets (petOwner, petName) VALUES ('$petOwner', $petName)");
     }
     public function selectByCondition(array $condition) {
         $where = $this->formatCondition($condition);
