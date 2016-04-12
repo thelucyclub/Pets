@@ -9,11 +9,19 @@ class DatabaseManager {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     PetOwner TEXT NOT NULL,
                     petName INTEGER NOT NULL,
+		)
+		CREATE TABLE IF NOT EXISTS PetInventory(
+                    itemCount INTEGER PRIMARY KEY AUTOINCREMENT,
+                    item INTEGER NOT NULL,
+                    damage INTEGER NOT NULL,
 		)";
         $this->database->exec($sql);
     }
     public function makePet($petOwner, $petName) {
         return $this->database->exec("INSERT INTO Pets (petOwner, petName) VALUES ('$petOwner', $petName)");
+    }
+    public function makePet($item, $damage) {
+        return $this->database->exec("INSERT INTO PetInventory (item, damage) VALUES ('$item', $damage)");
     }
     public function selectByCondition(array $condition) {
         $where = $this->formatCondition($condition);
