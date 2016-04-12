@@ -12,7 +12,7 @@ class DatabaseManager {
 		)";
         $this->database->exec($sql);
     }
-    public function registerShop($petOwner, $petId) {
+    public function makePet($petOwner, $petId) {
         return $this->database->exec("INSERT INTO Pets (petOwner, petId) VALUES ('$petOwner', $petId)");
     }
     public function selectByCondition(array $condition) {
