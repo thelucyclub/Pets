@@ -1,8 +1,28 @@
 name: Pets
-author: PMMPDevs
-main: PMMPDevs\Pets\
-version: "1.0.0"
-api:
-- 1.0.0
-- 2.0.0
-description: Pets Plugin For PocketMine
+main: LostTeam/Pets
+version: 1.0.0
+api: [1.13.1, 2.0.0]
+author: "jasonwynn10"
+description: ""
+commands:
+  pet:
+    usage: "/pet <Sub-Command|Help>"
+    description: ""
+    permission: pet.cmd
+permissions:
+  pet.cmd:
+    default: true
+    description: ""
+    children:
+      pet.cmd.make:
+        default: true
+        description: ""
+      pet.cmd.name:
+        default: true
+        description: ""
+      pet.cmd.storage:
+        default: true
+        description: ""
+      pet.cmd.help:
+        default: true
+        description: ""
