@@ -1,6 +1,7 @@
 # Pets
 ## Pets in PocketMine!
 ### To Do:
+- [x] Add primary command
 - [ ] Add sub sommands for viewing, buying, teleporing, equiping and, unequiping pets 
 - [ ] Make pet follow owner
 - [ ] Make pet take the loot when owner kills another player
