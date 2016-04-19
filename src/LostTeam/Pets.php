@@ -48,6 +48,12 @@ class Pets extends PluginBase {
         }elseif($args[1] === "list") {
           //list all items in database
         }
+      }elseif($args[0] === "tp" and $sender->hasPermission("pet.cmd.tp")) {
+        if($args[1] === "" or $args[1] === null) {
+          $sender->sendMessage(TF::RED."/pet tp <Me|Pet>");
+          return true;
+        }
+        //tp pet or player depending on Sub-SubCommand
       }
     }
   }
