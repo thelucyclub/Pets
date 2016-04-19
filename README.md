@@ -1,2 +1,9 @@
 # Pets
-Pets in PocketMine #To Do: 1.add pets inv from chest only openable by player who owns the pet. #2. add many pet options. #3. add this /pet view (view available pet) /pet buy (buy pet) /pet eq (equip pet that brought) /pet uneq (unequip pet)  -pet will follow the player -pet will take the loot when the player kill other player add pet food shop and acceriores shop within petshop. Please Add An optional pet shop teleporter and optional pet shop spawner via config.  if pet gets lost or dies its chest inv is sent back to ur chest in ur home,players can set that chest with the pets cmd.Please add /pet pme, so a lost pet can be safley be brought back home. Add mmnmeta's tpo pets via /pet cmd menu. No sql database for this plugin also please. Please Add other thing cause this is the only in my mind.
+## Pets in PocketMine!
+# To Do:
+1. Add pets inv from chest only openable by player who owns the pet.
+2. Add many pet options.
+3. Add sub sommands for viewing, buying, teleporing, equiping and, unequiping pets 
+4. Make pet follow owner
+5. Make pet take the loot when owner kills another player
+6. Make a pet's inventory be dropped in a chest if it dies
