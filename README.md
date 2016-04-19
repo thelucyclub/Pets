@@ -1,6 +1,6 @@
 # Pets
 ## Pets in PocketMine!
-# To Do:
+### To Do:
 1. Add pets inv from chest only openable by player who owns the pet.
 2. Add many pet options.
 3. Add sub sommands for viewing, buying, teleporing, equiping and, unequiping pets 
