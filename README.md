@@ -1,6 +1,6 @@
 # Pets
-## Pets in PocketMine!
-### To Do:
+## Pets for PocketMine!
+#### To Do:
 - [x] Add primary command
 - [ ] Add sub sommands for viewing, buying, teleporing, equiping and, unequiping pets 
 - [ ] Make pet follow owner
