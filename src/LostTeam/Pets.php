@@ -18,7 +18,8 @@ class Pets extends PluginBase {
         $sender->sendMessage(TF::YELLOW."/pet help");
         $sender->sendMessage(TF::YELLOW."/pet spawn <PetName>");
         $sender->sendMessage(TF::YELLOW."/pet rename <PetName>");
-        $sender->sendMessage(TF::YELLOW."/pet items <add|Remove|List> <Item Id>");
+        $sender->sendMessage(TF::YELLOW."/pet items <add|Remove|List>");
+        $sender->sendMessage(TF::YELLOW."/pet tp [Me|Pet]");
         return true;
       }
       if($args[0] === "spawn" and $sender->hasPermission("pet.cmd.make")) {
@@ -38,7 +39,7 @@ class Pets extends PluginBase {
         $name['petName'] = $args[1];
       }elseif($args[0] === "items" and $sender->hasPermission("pet.cmd.storage")) {
         if($args[1] === "" or $args[1] === null) {
-          $sender->sendMessage(TF::RED."/pet items <add|Remove|List> <Item Id>");
+          $sender->sendMessage(TF::RED."/pet items <Add|Remove|List>");
           return true;
         }
         if($args[1] === "add") {
@@ -50,7 +51,7 @@ class Pets extends PluginBase {
         }
       }elseif($args[0] === "tp" and $sender->hasPermission("pet.cmd.tp")) {
         if($args[1] === "" or $args[1] === null) {
-          $sender->sendMessage(TF::RED."/pet tp <Me|Pet>");
+          //default to teleport pet
           return true;
         }
         //tp pet or player depending on Sub-SubCommand
