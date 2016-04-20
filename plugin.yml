@@ -1,9 +1,9 @@
 name: Pets
-main: LostTeam/Pets
+main: Pets/Pets
 version: 1.0.0
 api: [1.13.1, 2.0.0]
-author: "jasonwynn10"
-description: ""
+author: "PMMPDevs & LostTeam"
+description: "Pets for PocketMine!"
 commands:
   pet:
     usage: "/pet <Sub-Command|Help>"
