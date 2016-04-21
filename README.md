@@ -8,3 +8,5 @@
 - [ ] Have pet take the loot when owner kills another player
 - [ ] Restrict pet inventory access to owner
 - [ ] Drop a pets inventory in a chest if pet dies
+- [ ] Turn on Issues for github repository
+- [ ] Make a gitter chat for repository
