@@ -1,3 +1,4 @@
+[![Gitter](https://badges.gitter.im/thelucyclub/Pets.svg)](https://gitter.im/thelucyclub/Pets?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 # Pets
 ## Pets for PocketMine!
 #### To Do:
