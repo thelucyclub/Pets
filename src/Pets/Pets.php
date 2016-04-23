@@ -27,19 +27,32 @@ class Pets extends PluginBase {
         }
         $petName = $args[1];
         $this->db->makePet($sender->getName(),$petName);
-        $pk = new AddEntityPacket();
-        $pk->eid = $this->getId();
-        $pk->type = 14;
-        $pk->x = $this->x;
-        $pk->y = $this->y;
-        $pk->z = $this->z;
-        $pk->yaw = $this->yaw;
-        $pk->pitch = $this->pitch;
+        //spawn wolf tamed by command sender with petName on nametag
       }elseif($args[0] === "rename" and $sender->hasPermission("pet.cmd.name")) {
         if($args[1] === "" or $args[1] === null) {
           $sender->sendMessage(TF::RED."You need to name your pet!");
           return true;
         }
+        $name = $this->db->deleteByCondition("petOwner" => $sender->getName());
+        $name['petName'] = $args[1];
+      }elseif($args[0] === "items" and $sender->hasPermission("pet.cmd.storage")) {
+        if($args[1] === "" or $args[1] === null) {
+          $sender->sendMessage(TF::RED."/pet items <Add|Remove|List>");
+          return true;
+        }
+        if($args[1] === "add") {
+          //add item with damage to database
+        }elseif($args[1] === "remove") {
+          //remove item with damage from database and give player item with damage
+        }elseif($args[1] === "list") {
+          //list all items in database
+        }
+      }elseif($args[0] === "tp" and $sender->hasPermission("pet.cmd.tp")) {
+        if($args[1] === "" or $args[1] === null) {
+          //default to teleport pet
+          return true;
+        }
+        //tp pet or player depending on Sub-SubCommand
       }
     }
   }
