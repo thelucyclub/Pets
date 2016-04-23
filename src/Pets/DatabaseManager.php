@@ -1,5 +1,5 @@
 <?php
-namespace ChestShop;
+namespace TheLucyClub/Pets;
 use pocketmine\block\Block;
 class DatabaseManager {
     private $database;
