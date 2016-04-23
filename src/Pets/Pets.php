@@ -28,6 +28,14 @@ class Pets extends PluginBase {
         $petName = $args[1];
         $this->db->makePet($sender->getName(),$petName);
         //spawn wolf tamed by command sender with petName on nametag
+        $pk = new AddEntityPacket();
+        $pk->eid = $this->getId();
+        $pk->type = 14;
+        $pk->x = $this->x;
+        $pk->y = $this->y;
+        $pk->z = $this->z;
+        $pk->yaw = $this->yaw;
+        $pk->pitch = $this->pitch;
       }elseif($args[0] === "rename" and $sender->hasPermission("pet.cmd.name")) {
         if($args[1] === "" or $args[1] === null) {
           $sender->sendMessage(TF::RED."You need to name your pet!");
