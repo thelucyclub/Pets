@@ -2,7 +2,7 @@ name: Pets
 main: Pets/Pets
 version: 1.0.0
 api: [1.13.1, 2.0.0]
-author: "PMMPDevs & LostTeam"
+author: "The Lucy Club"
 description: "Pets for PocketMine!"
 commands:
   pet:
