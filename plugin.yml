@@ -2,27 +2,27 @@ name: Pets
 main: Pets\Pets
 version: 1.0.0
 api: [1.13.1, 2.0.0]
-author: "The Lucy Club"
+author: "TheLucyClub & LostTeam"
 description: "Pets for PocketMine!"
 commands:
   pet:
-    usage: "/pet <Sub-Command|Help>"
-    description: ""
+    usage: "/pet <Sub-Command|Help> [Sub-SubCommand]"
+    description: "Basic Pet Command"
     permission: pet.cmd
 permissions:
   pet.cmd:
     default: true
-    description: ""
+    description: "Parent Pets Permission"
     children:
       pet.cmd.make:
         default: true
-        description: ""
+        description: "pet spawn permission"
       pet.cmd.name:
         default: true
-        description: ""
+        description: "pet renaming permission"
       pet.cmd.storage:
         default: true
-        description: ""
+        description: "pet inventory permission"
       pet.cmd.help:
         default: true
-        description: ""
+        description: "general help permission"
