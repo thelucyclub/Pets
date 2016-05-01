@@ -1,6 +1,6 @@
-# Pets
-## Pets for PocketMine!
+## Gitter.IM chat
 [![Gitter](https://badges.gitter.im/thelucyclub/Pets.svg)](https://gitter.im/thelucyclub/Pets?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+# Pets
 #### First Release To Do:
 - [x] Add Primary Command
 - [x] Enable full use of config.yml
