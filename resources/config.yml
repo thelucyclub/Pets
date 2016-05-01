@@ -1,7 +1,16 @@
-####### Pet Pugin Config ########
-enable-pet-shop-spawner: true
-pet-shop-spawner-world: world
-pet-shop-spawner-cords: x,y,z
-pet-limit: false
-# of how many pets can be owned by player
-pets-limit: 2
+
+# PocketMine Pets by LostTeam (jasonwynn10@me.com, @jasonwynn10 for Twitter)
+
+---
+# Setting for renaming pets
+allow-rename: true
+# Data provider type
+# Available types are: Sqlite3 and Yaml
+dataProvider: Sqlite3
+# COMING SOON
+# maximum-pets: 1
+# pet-cost: 100
+# data-sync: false
+# Pet inventory setting
+# pet-inventory: true
+...
