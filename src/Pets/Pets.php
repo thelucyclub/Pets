@@ -5,15 +5,14 @@ use Pets\Managers\Sqlite3Manager;
 use Pets\Managers\YamlManager;
 use Pets\Listener\EventListener;
 use pocketmine\plugin\PluginBase;
-use pocketmine\Player;
-use pocketmine\nbt\tag\Byte;
-use pocketmine\nbt\tag\Compound;
-use pocketmine\nbt\tag\Double;
-use pocketmine\nbt\tag\Enum;
-use pocketmine\nbt\tag\Float;
-use pocketmine\nbt\tag\Int;
-use pocketmine\nbt\tag\Short;
-use pocketmine\nbt\tag\String;
+use pocketmine\nbt\tag\ByteTag;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\DoubleTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\FloatTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\ShortTag;
+use pocketmine\nbt\tag\StringTag;
 use pocketmine\entity\Entity;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
@@ -108,6 +107,8 @@ class Pets extends PluginBase {
             "Data" => new String("Data", $skin),
             "Name" => new String("Name", $skinName)
         ]);
+        /* FallingSand Block ID */
+        $nbt->BlockID = new Int("BlockID", 1);
         /* Name visible */
         $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
         return $nbt;
@@ -135,6 +136,6 @@ class Pets extends PluginBase {
     }
   }
   public function onDisable() {
-    $this->getLogger()->notice(TF::GREEN."Disabled!");
+    $this->getLogger()->notice(TF::GREEN."Enabled!");
   }
 }
