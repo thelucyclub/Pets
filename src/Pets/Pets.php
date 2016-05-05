@@ -89,27 +89,27 @@ class Pets extends PluginBase {
   }
   private function makeNBT($skin, $skinName, $name, $inv, $yaw, $pitch, $x, $y, $z)
     {
-        $nbt = new Compound;
-        $nbt->Pos = new Enum("Pos", [
-            new Double("", $x),
-            new Double("", $y),
-            new Double("", $z)
+        $nbt = new CompoundTag;
+        $nbt->Pos = new EnumTag("Pos", [
+            new DoubleTag("", $x),
+            new DoubleTag("", $y),
+            new DoubleTag("", $z)
         ]);
-        $nbt->Rotation = new Enum("Rotation", [
-            new Float("", $yaw),
-            new Float("", $pitch)
+        $nbt->Rotation = new EnumTag("Rotation", [
+            new FloatTag("", $yaw),
+            new FloatTag("", $pitch)
         ]);
-        $nbt->Health = new Short("Health", 20);
-        $nbt->Inventory = new Enum("Inventory", $inv);
-        $nbt->CustomName = new String("CustomName", $name);
-        $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
-        $nbt->Invulnerable = new Byte("Invulnerable", 0);
-        $nbt->Skin = new Compound("Skin", [
-            "Data" => new String("Data", $skin),
-            "Name" => new String("Name", $skinName)
+        $nbt->Health = new ShortTag("Health", 20);
+        $nbt->Inventory = new EnumTag("Inventory", $inv);
+        $nbt->CustomName = new StringTag("CustomName", $name);
+        $nbt->CustomNameVisible = new ByteTag("CustomNameVisible", 1);
+        $nbt->Invulnerable = new ByteTag("Invulnerable", 0);
+        $nbt->Skin = new CompoundTag("Skin", [
+            "Data" => new StringTag("Data", $skin),
+            "Name" => new StringTag("Name", $skinName)
         ]);
         /* Name visible */
-        $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
+        $nbt->CustomNameVisible = new ByteTag("CustomNameVisible", 1);
         return $nbt;
     }
   public function getPet($name) {
