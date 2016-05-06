@@ -40,7 +40,7 @@ class Pets extends PluginBase {
         $sender->sendMessage(TF::YELLOW."/pet spawn <PetName>");
         $sender->sendMessage(TF::YELLOW."/pet rename [PetName] <NewName>");
         //$sender->sendMessage(TF::YELLOW."/pet items <add|Remove|List>");
-        $sender->sendMessage(TF::YELLOW."/pet tp [Me|Pet] <PetName>");
+        $sender->sendMessage(TF::YELLOW."/pet tp");
         return true;
       }
       if($args[0] === "spawn" and $sender->hasPermission("pet.cmd.make")) {
@@ -71,17 +71,9 @@ class Pets extends PluginBase {
         if($sender instanceof Player);
         $pet = $this->getPet($args[2]);
         if($args[1] === null and $args[2] !== null) {
-          $pet->teleport($sender->getPosition(), $sender->getYaw(), $sender->getPitch()); //default to teleport pet to player
+          //default to teleport pet to player
+          $sender->sendMessage(TF::RED."Functionality not implemented yet");
           return true;
-        }elseif($args[2] === "" or $args[2] === null) {
-          $sender->sendMessage(TF::RED."You need to enter the pets name!");
-        }
-        if(strtolower($args[1]) === "me") {
-          $sender->teleport($pet->getPosition(), $pet->getYaw(), $pet->getPitch()); //teleport player to pet
-        }elseif(strtolower($args[1]) === "pet") {
-          $pet->teleport($sender->getPosition(), $sender->getYaw(), $sender->getPitch()); //teleport pet to player
-        }else{
-          $pet->teleport($sender->getPosition(), $sender->getYaw(), $sender->getPitch()); //teleport pet to player
         }
         return true;
       }
