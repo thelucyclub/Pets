@@ -7,7 +7,7 @@
 - [x] Add help SubCommand
 - [x] Add pet spawn SubCommand
 - [ ] Add pet teleporting SubCommand
-- [x] Add pet renaming SubCommand
+- [ ] Add pet renaming SubCommand
 
 #### Beta Features:
 - [ ] Implement Dogs as pets not wolves
