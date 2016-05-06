@@ -37,6 +37,7 @@ class Pets extends PluginBase {
     if(strtolower($command) === "pet" and $sender->hasPermission("pet.cmd")) {
       if((count($args) == 0 and $sender->hasPermission("pet.cmd.help")) or ($args[0] === "help" and $sender->hasPermission("pet.cmd.help"))) {
         $sender->sendMessage(TF::YELLOW."/pet help");
+        $sender->sendMessage(TF::YELLOW."/pet disown");
         $sender->sendMessage(TF::YELLOW."/pet spawn <PetName>");
         $sender->sendMessage(TF::YELLOW."/pet rename [PetName] <NewName>");
         //$sender->sendMessage(TF::YELLOW."/pet items <add|Remove|List>");
@@ -58,6 +59,8 @@ class Pets extends PluginBase {
         }
         $sender->sendMessage(TF::GREEN."Pet Created!");
           return true;
+      }elseif($args[0] === "disown" and $sender->hasPermission("pet.cmd.disown")) {
+        // kill pet
       }elseif($args[0] === "rename" and $sender->hasPermission("pet.cmd.name")) {
         if($args[1] === "" or $args[1] === null) {
           $sender->sendMessage(TF::RED."You need to name your pet!");
