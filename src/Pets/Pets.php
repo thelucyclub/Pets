@@ -9,7 +9,7 @@ use pocketmine\Player;
 use pocketmine\nbt\tag\ByteTag;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\EnumTag;
+use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\FloatTag;
 use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\ShortTag;
@@ -90,17 +90,17 @@ class Pets extends PluginBase {
   private function makeNBT($skin, $skinName, $name, $inv, $yaw, $pitch, $x, $y, $z)
     {
         $nbt = new CompoundTag;
-        $nbt->Pos = new EnumTag("Pos", [
+        $nbt->Pos = new ListTag("Pos", [
             new DoubleTag("", $x),
             new DoubleTag("", $y),
             new DoubleTag("", $z)
         ]);
-        $nbt->Rotation = new EnumTag("Rotation", [
+        $nbt->Rotation = new ListTag("Rotation", [
             new FloatTag("", $yaw),
             new FloatTag("", $pitch)
         ]);
         $nbt->Health = new ShortTag("Health", 20);
-        $nbt->Inventory = new EnumTag("Inventory", $inv);
+        $nbt->Inventory = new ListTag("Inventory", $inv);
         $nbt->CustomName = new StringTag("CustomName", $name);
         $nbt->CustomNameVisible = new ByteTag("CustomNameVisible", 1);
         $nbt->Invulnerable = new ByteTag("Invulnerable", 0);
