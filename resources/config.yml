@@ -3,10 +3,11 @@
 
 ---
 # Setting for renaming pets
-allow-rename: true
+allow-rename: "true"
 # Data provider type
-# Available types are: Sqlite3 and Yaml
-dataProvider: Yaml
+# Sqlite3 recommended for storage space
+# yaml recommended for Organization
+dataProvider: "Yaml"
 # COMING SOON
 # maximum-pets: 1
 # pet-cost: 100
