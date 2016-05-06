@@ -1,10 +1,12 @@
 <?php
 namespace Pets\Listener;
+use Pets\PetOcelot;
+use Pets\PetWolf;
 use Pets\Pets;
 use pocketmine\event\Listener;
 use pocketmine\event\entity\EntityDeathEvent;
 use pocketmine\entity\Wolf;
-use pocketmine\entity\Ozelot;
+use pocketmine\entity\Ocelot;
 class EventListener implements Listener {
     public $Main;
     public function __construct(Pets $Main) {
@@ -16,7 +18,7 @@ class EventListener implements Listener {
             $this->Main->provider->removePet($entity->getName());
             return;
         }
-        if($entity instanceof Ozelot) {
+        if($entity instanceof Ocelot) {
             $this->Main->provider->removePet($entity->getName());
             return;
         }
