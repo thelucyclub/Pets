@@ -4,22 +4,23 @@ use Pets\Managers\PointlessManager;
 use Pets\Managers\Sqlite3Manager;
 use Pets\Managers\YamlManager;
 use Pets\Listener\EventListener;
+
 use pocketmine\plugin\PluginBase;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\StringTag;
+use pocketmine\nbt\tag\Byte;
+use pocketmine\nbt\tag\Enum;
+use pocketmine\nbt\tag\Double;
+use pocketmine\nbt\tag\Float;
+use pocketmine\nbt\tag\Int;
+use pocketmine\nbt\tag\Short;
+use pocketmine\nbt\tag\String;
 use pocketmine\entity\Entity;
-use pocketmine\Compound;
-use pocketmine\Server;
+use pocketmine\nbt\tag\Compound;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat as TF;
+use pocketmine\Player;
+
 class Pets extends PluginBase {
   public $Pets, $cfg, $provider;
   public function onEnable() {
@@ -50,9 +51,9 @@ class Pets extends PluginBase {
           return true;
         }
         if($sender instanceof Player);
-        $this->provider->makePet($sender->getName(),$args[1]);
         $nbt = $this->makeNBT($sender->getSkinData(), $sender->getSkinName(), $args[1], $sender->getInventory(), $sender->getYaw(), $sender->getPitch(), $sender->getX(), $sender->getY(), $sender->getZ());
         $petEntity = Entity::createEntity("PetWolf", $sender->getLevel()->getChunk($sender->getX() >> 4, $sender->getZ() >> 4), $nbt);
+        $this->provider->makePet($petEntity->getId(), $sender->getName(),$args[1]);
         if($petEntity) {
           $sender->sendMessage(TF::GREEN."Pet Created!");
           return true;
@@ -69,7 +70,7 @@ class Pets extends PluginBase {
           $sender->sendMessage(TF::RED."Pet renaming is Disabled!");
           return true;
         }
-        $this->provider->setPetName($args[1], $sender->getName());
+        $this->provider->setPetName($args[1], $sender->getName(), $this->provider->getPetName($sender->getName(), $this->provider->));
       }elseif($args[0] === "tp" and $sender->hasPermission("pet.cmd.tp")) {
         if($sender instanceof Player);
         $pet = $this->getPet($args[2]);
@@ -111,7 +112,8 @@ class Pets extends PluginBase {
         return $nbt;
     }
   public function getPet($name) {
-    return $this->getServer()->getPlayerExact($name);
+    $this->provider->getPetName(); //
+    return $this->getServer(); //TODO find pet by id
   }
   public function configProvider() {
     if(!file_exists($this->getDataFolder())) {

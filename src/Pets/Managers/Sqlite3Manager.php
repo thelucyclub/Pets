@@ -15,16 +15,16 @@ class Sqlite3Manager implements PointlessManager{
 		)";
         $this->database->exec($sql);
     }
-    public function makePet($petOwner, $petName) {
+    public function makePet($id, $petOwner, $petName) {
         return $this->database->exec("INSERT INTO Pets (petOwner, petName) VALUES ('$petOwner', $petName)");
     }
-    public function getPetOwner($petName) {
-        $Owner = $this->selectByCondition(["petName" => $petName]);
-        return $Owner['petOwner'];
-    }
-    public function getOwnerPet($ownerName) {
-        $Pet = $this->selectByCondition(["petOwner" => $ownerName]);
+    public function getPetName($ownerName, $id) {
+        $Pet = $this->selectByCondition(["petOwner" => $ownerName, "petId" => $id]);
         return $Pet['petName'];
+    }
+    public function getPetId($Owner) {
+        $Owner = $this->selectByCondition(["ownerName" => $Owner]);
+        return $Owner['petId'];
     }
     public function setPetName($newName, $ownerName, $petName=null) {
         if($petName != null) {

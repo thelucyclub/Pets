@@ -12,27 +12,24 @@ class YamlManager implements PointlessManager{
       @mkdir($this->PetsDataFolder,0777,true);
     }
   }
-  public function makePet($petOwner, $petName) {
-    $this->getPetConfigFile($petName, $petOwner)->save(true);
+  public function makePet($id, $petOwner, $petName) {
+    $this->getPetConfigFile($petName, $petOwner, $id)->save(true);
     return;
   }
-  
-  public function getPetOwner($petName) {
-    return $this->getPetConfigFile($petName, null)->get("OwnerName");
-  }
-  public function getOwnerPet($ownerName) {
-    return;
+  public function getPetName($ownerName, $id) {
+    return $this->getPetConfigFile(null, $ownerName, $id)->get("PetName");
   }
   public function setPetName($newName, $ownerName, $petName=null) {
-    return $this->getPetConfigFile($petName, $ownerName)->set("PetName",$newName);
+    return $this->getPetConfigFile($petName, $ownerName, $petName->getId())->set("PetName",$newName); //returns Pets name
   }
   public function removePet($petName) {
     return @unlink($this->PetsDataFolder . strtolower($petName) . ".yml");
   }
-  public function getPetConfigFile($PetName, $Owner) {
-    return new Config($this->PetsDataFolder . strtolower($PetName) . ".yml", Config::YAML, [
+  public function getPetConfigFile($PetName, $Owner, $id) {
+    return new Config($this->PetsDataFolder . $id . ".yml", Config::YAML, [
         "OwnerName" => $Owner,
-        "PetName" => $PetName
+        "PetName" => $PetName,
+        "PetId" => $id
     ]);
   }
   public function close() {
