@@ -1,5 +1,6 @@
 <?php
 namespace Pets;
+
 use Pets\Managers\PointlessManager;
 use Pets\Managers\Sqlite3Manager;
 use Pets\Managers\YamlManager;
@@ -61,7 +62,8 @@ class Pets extends PluginBase {
         $sender->sendMessage(TF::GREEN."Pet Created!");
           return true;
       }elseif($args[0] === "disown" and $sender->hasPermission("pet.cmd.disown")) {
-        // kill pet
+        $pet = $this->getPet($sender->getName());
+        $pet->close();
       }elseif($args[0] === "rename" and $sender->hasPermission("pet.cmd.name")) {
         if($args[1] === "" or $args[1] === null) {
           $sender->sendMessage(TF::RED."You need to name your pet!");
@@ -70,12 +72,13 @@ class Pets extends PluginBase {
           $sender->sendMessage(TF::RED."Pet renaming is Disabled!");
           return true;
         }
-        $this->provider->setPetName($args[1], $sender->getName(), $this->provider->getPetName($sender->getName(), $this->provider->));
+        $this->provider->setPetName($args[1], $sender->getName(), $this->provider->getPetName($sender->getName(), $this));
       }elseif($args[0] === "tp" and $sender->hasPermission("pet.cmd.tp")) {
         if($sender instanceof Player);
-        $pet = $this->getPet($args[2]);
+        // $pet = $this->getPet($args[2]);
         if($args[1] === null and $args[2] !== null) {
-          //default to teleport pet to player
+          // $pet->teleport($sender);
+          // TODO default to teleport pet to player
           $sender->sendMessage(TF::RED."Functionality not implemented yet");
           return true;
         }
@@ -83,6 +86,7 @@ class Pets extends PluginBase {
       }
       return false;
     }
+    return false;
   }
   private function makeNBT($skin, $skinName, $name, $inv, $yaw, $pitch, $x, $y, $z)
     {
@@ -112,8 +116,8 @@ class Pets extends PluginBase {
         return $nbt;
     }
   public function getPet($name) {
-    $this->provider->getPetName(); //
-    return $this->getServer(); //TODO find pet by id
+    $pet = $this->provider->getPetId($name); // TODO find the pet id by name then use the id to target the specific entity/pet
+    return $pet ? false : $pet;
   }
   public function configProvider() {
     if(!file_exists($this->getDataFolder())) {

@@ -1,7 +1,9 @@
 <?php
 namespace Pets\Managers;
+
 use Pets\Pets;
 use pocketmine\utils\Config;
+
 class YamlManager implements PointlessManager{
   private $PetsDataFolder, $Main;
   public function __construct(Pets $Main) {
@@ -19,8 +21,12 @@ class YamlManager implements PointlessManager{
   public function getPetName($ownerName, $id) {
     return $this->getPetConfigFile(null, $ownerName, $id)->get("PetName");
   }
-  public function setPetName($newName, $ownerName, $petName=null) {
-    return $this->getPetConfigFile($petName, $ownerName, $petName->getId())->set("PetName",$newName); //returns Pets name
+
+  public function getPetId($ownerName) {
+    // TODO: Implement getPetId() method.
+  }
+  public function setPetName($newName, $ownerName) {
+    return $this->getPetConfigFile($petName, $ownerName, $this->provider->getPetId())->set("PetName",$newName); //returns Pets name
   }
   public function removePet($petName) {
     return @unlink($this->PetsDataFolder . strtolower($petName) . ".yml");
