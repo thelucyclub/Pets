@@ -7,8 +7,8 @@ allow-rename: "true"
 # Data provider type
 # Sqlite3 recommended for storage space
 # yaml recommended for Organization
-dataProvider: "Yaml"
-# COMING SOON
+dataProvider: "Yaml" # TODO change to Sqlite3 for release
+# possible for V2 release
 # maximum-pets: 1
 # pet-cost: 100
 # data-sync: false
