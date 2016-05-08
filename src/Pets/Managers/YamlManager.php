@@ -5,13 +5,17 @@ use Pets\Pets;
 use pocketmine\utils\Config;
 
 class YamlManager implements PointlessManager{
-  private $PetsDataFolder, $Main;
+  private $PetsDataFolder, $Main, $OwnersDataFolder;
   public function __construct(Pets $Main) {
     $this->Main = $Main;
     
     $this->PetsDataFolder = $this->Main->getDataFolder()."Pets/";
+    $this->PetsDataFolder = $this->Main->getDataFolder()."Owners/";
     if(!file_exists($this->PetsDataFolder)) {
       @mkdir($this->PetsDataFolder,0777,true);
+    }
+    if(!file_exists($this->OwnersDataFolder)) {
+      @mkdir($this->OwnersDataFolder,0777,true);
     }
   }
   public function makePet($id, $petOwner, $petName) {
@@ -19,14 +23,19 @@ class YamlManager implements PointlessManager{
     return;
   }
   public function getPetName($ownerName, $id) {
-    return $this->getPetConfigFile(null, $ownerName, $id)->get("PetName");
+    return $this->getPetConfigFile(null, $ownerName, $id)->get("PetName"); // returns pets name
   }
 
   public function getPetId($ownerName) {
+    $id = $this->getPetConfigFile(null,$ownerName, null)->get("petId");
+    return (int) $id; // I think this works
     // TODO: Implement getPetId() method.
   }
   public function setPetName($newName, $ownerName) {
-    return $this->getPetConfigFile($petName, $ownerName, $this->provider->getPetId())->set("PetName",$newName); //returns Pets name
+    $id = $this->getPetId($ownerName);
+    $petName = $this->getPetName($ownerName, $id);
+    $this->getPetConfigFile($petName, $ownerName, $id)->set("PetName",$newName);
+    return;
   }
   public function removePet($petName) {
     return @unlink($this->PetsDataFolder . strtolower($petName) . ".yml");
@@ -35,6 +44,11 @@ class YamlManager implements PointlessManager{
     return new Config($this->PetsDataFolder . $id . ".yml", Config::YAML, [
         "OwnerName" => $Owner,
         "PetName" => $PetName,
+        "PetId" => $id
+    ]);
+  }
+  public function getOwnerConfigFile($Owner, $id) {
+    return new Config($this->OwnersDataFolder . $Owner . ".yml", Config::YAML, [
         "PetId" => $id
     ]);
   }

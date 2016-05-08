@@ -63,6 +63,7 @@ class Pets extends PluginBase {
           return true;
       }elseif($args[0] === "disown" and $sender->hasPermission("pet.cmd.disown")) {
         $pet = $this->getPet($sender->getName());
+        // if($pet instanceof Entity);
         $pet->close();
       }elseif($args[0] === "rename" and $sender->hasPermission("pet.cmd.name")) {
         if($args[1] === "" or $args[1] === null) {
@@ -116,7 +117,9 @@ class Pets extends PluginBase {
         return $nbt;
     }
   public function getPet($name) {
-    $pet = $this->provider->getPetId($name); // TODO find the pet id by name then use the id to target the specific entity/pet
+    if($this->provider instanceof PointlessManager)
+    $pet = $this->provider->getPetId($name); // TODO find the pet id by name then use the id to target the specific entity
+    if($pet instanceof Entity);
     return $pet ? false : $pet;
   }
   public function configProvider() {

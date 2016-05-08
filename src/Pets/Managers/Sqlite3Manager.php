@@ -28,13 +28,12 @@ class Sqlite3Manager implements PointlessManager{
         $Owner = $this->selectByCondition(["ownerName" => $Owner]);
         return $Owner['petId'];
     }
-    public function setPetName($newName, $ownerName, $petName=null) {
-        if($petName != null) {
-            $sql = "UPDATE Pets SET petName='$newName' WHERE ownerName='$ownerName',petName='$petName'";
+    public function setPetName($newName, $ownerName) {
+        if($ownerName != null) {
+            $sql = "UPDATE Pets SET petName='$newName' WHERE ownerName='$ownerName'";
             return $this->database->exec($sql);
         }
-        $sql = "UPDATE Pets SET petName='$newName' WHERE ownerName='$ownerName'";
-        return $this->database->exec($sql);
+        return false;
     }
     public function removePet($petName) {
         return $this->deleteByCondition(["petName" => $petName]);
