@@ -27,7 +27,7 @@ class YamlManager implements PointlessManager{
   }
 
   public function getPetId($ownerName) {
-    $id = $this->getPetConfigFile(null,$ownerName, null)->get("petId");
+    $id = $this->getOwnerConfigFile($ownerName, null)->get("PetId");
     return (int) $id; // I think this works
     // TODO: Implement getPetId() method.
   }
@@ -37,8 +37,10 @@ class YamlManager implements PointlessManager{
     $this->getPetConfigFile($petName, $ownerName, $id)->set("PetName",$newName);
     return;
   }
-  public function removePet($petName) {
-    return @unlink($this->PetsDataFolder . strtolower($petName) . ".yml");
+  public function removePet($petId, $ownerName) {
+    @unlink($this->PetsDataFolder . strtolower($petId) . ".yml");
+    @unlink($this->OwnersDataFolder . strtolower($ownerName) . ".yml");
+    return true;
   }
   public function getPetConfigFile($PetName, $Owner, $id) {
     return new Config($this->PetsDataFolder . $id . ".yml", Config::YAML, [

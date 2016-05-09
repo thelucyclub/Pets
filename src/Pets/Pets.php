@@ -63,7 +63,7 @@ class Pets extends PluginBase {
           return true;
       }elseif($args[0] === "disown" and $sender->hasPermission("pet.cmd.disown")) {
         $pet = $this->getPet($sender->getName());
-        // if($pet instanceof Entity);
+        if($pet instanceof Entity);
         $pet->close();
       }elseif($args[0] === "rename" and $sender->hasPermission("pet.cmd.name")) {
         if($args[1] === "" or $args[1] === null) {
@@ -73,14 +73,14 @@ class Pets extends PluginBase {
           $sender->sendMessage(TF::RED."Pet renaming is Disabled!");
           return true;
         }
-        $this->provider->setPetName($args[1], $sender->getName(), $this->provider->getPetName($sender->getName(), $this));
+        $this->provider->setPetName($args[1], $sender->getName());
       }elseif($args[0] === "tp" and $sender->hasPermission("pet.cmd.tp")) {
         if($sender instanceof Player);
-        // $pet = $this->getPet($args[2]);
+        $pet = $this->getPet($sender->getName());
+        if($pet instanceof Entity);
         if($args[1] === null and $args[2] !== null) {
-          // $pet->teleport($sender);
-          // TODO default to teleport pet to player
-          $sender->sendMessage(TF::RED."Functionality not implemented yet");
+          $pet->teleport($sender->getPosition());
+          // $sender->sendMessage(TF::RED."Functionality not implemented yet");
           return true;
         }
         return true;
@@ -89,38 +89,34 @@ class Pets extends PluginBase {
     }
     return false;
   }
-  private function makeNBT($skin, $skinName, $name, $inv, $yaw, $pitch, $x, $y, $z)
-    {
-        $nbt = new Compound;
-        $nbt->Pos = new Enum("Pos", [
-            new Double("", $x),
-            new Double("", $y),
-            new Double("", $z)
-        ]);
-        $nbt->Rotation = new Enum("Rotation", [
-            new Float("", $yaw),
-            new Float("", $pitch)
-        ]);
-        $nbt->Health = new Short("Health", 20);
-        $nbt->Inventory = new Enum("Inventory", $inv);
-        $nbt->CustomName = new String("CustomName", $name);
-        $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
-        $nbt->Invulnerable = new Byte("Invulnerable", 0);
-        $nbt->Skin = new Compound("Skin", [
-            "Data" => new String("Data", $skin),
-            "Name" => new String("Name", $skinName)
-        ]);
-        /* FallingSand Block ID */
-        $nbt->BlockID = new Int("BlockID", 1);
-        /* Name visible */
-        $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
-        return $nbt;
-    }
+  private function makeNBT($skin, $skinName, $name, $inv, $yaw, $pitch, $x, $y, $z) {
+    $nbt = new Compound;
+    $nbt->Pos = new Enum("Pos", [
+        new Double("", $x),
+        new Double("", $y),
+        new Double("", $z)
+    ]);
+    $nbt->Rotation = new Enum("Rotation", [
+        new Float("", $yaw),
+        new Float("", $pitch)
+    ]);
+    $nbt->Health = new Short("Health", 20);
+    $nbt->Inventory = new Enum("Inventory", $inv);
+    $nbt->CustomName = new String("CustomName", $name);
+    $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
+    $nbt->Invulnerable = new Byte("Invulnerable", 0);
+    $nbt->Skin = new Compound("Skin", [
+        "Data" => new String("Data", $skin),
+        "Name" => new String("Name", $skinName)
+    ]);
+    /* Name visible */
+    $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
+    return $nbt;
+  }
   public function getPet($name) {
-    if($this->provider instanceof PointlessManager)
+    if($this->provider instanceof PointlessManager);
     $pet = $this->provider->getPetId($name); // TODO find the pet id by name then use the id to target the specific entity
-    if($pet instanceof Entity);
-    return $pet ? false : $pet;
+    return $pet;
   }
   public function configProvider() {
     if(!file_exists($this->getDataFolder())) {

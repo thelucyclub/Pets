@@ -5,6 +5,6 @@ interface PointlessManager {
     public function getPetName($ownerName, $id);
     public function getPetId($petName);
     public function setPetName($newName, $ownerName);
-    public function removePet($petName);
+    public function removePet($petId, $ownerName);
     public function close();
 }

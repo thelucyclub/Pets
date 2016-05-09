@@ -35,8 +35,8 @@ class Sqlite3Manager implements PointlessManager{
         }
         return false;
     }
-    public function removePet($petName) {
-        return $this->deleteByCondition(["petName" => $petName]);
+    public function removePet($petId, $ownerName) {
+        return $this->deleteByCondition(["petId" => $petId, "petOwner" => $ownerName]);
     }
     public function selectByCondition(array $condition) {
         $where = $this->formatCondition($condition);
