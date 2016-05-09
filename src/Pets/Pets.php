@@ -29,7 +29,7 @@ class Pets extends PluginBase {
     Entity::registerEntity(PetWolf::class, true);
     Entity::registerEntity(PetOcelot::class, true);
     $this->getLogger()->debug("Entities have been registered!");
-    $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
+    $this->getServer()->getPluginManager()->registerEvents(new EventListener($this, $this->provider), $this);
     $this->getLogger()->debug("Events have been registered!");
     $this->getLogger()->notice(TF::GREEN."Enabled!");
   }
@@ -59,7 +59,7 @@ class Pets extends PluginBase {
           $sender->sendMessage(TF::GREEN."Pet Created!");
           return true;
         }
-        $sender->sendMessage(TF::GREEN."Pet Created!");
+        $sender->sendMessage(TF::GREEN."Pet Creation Failed!");
           return true;
       }elseif($args[0] === "disown" and $sender->hasPermission("pet.cmd.disown")) {
         $pet = $this->getPet($sender->getName());
@@ -74,12 +74,16 @@ class Pets extends PluginBase {
           return true;
         }
         $this->provider->setPetName($args[1], $sender->getName());
+        $sender->sendMessage(TF::GREEN."Pet Renamed!");
+        return true;
       }elseif($args[0] === "tp" and $sender->hasPermission("pet.cmd.tp")) {
         if($sender instanceof Player);
         $pet = $this->getPet($sender->getName());
         if($pet instanceof Entity);
         if($args[1] === null and $args[2] !== null) {
+          $sender->sendMessage(TF::GREEN."Pet Teleporting...");
           $pet->teleport($sender->getPosition());
+          $sender->sendMessage(TF::GREEN."Pet Teleported!");
           // $sender->sendMessage(TF::RED."Functionality not implemented yet");
           return true;
         }
@@ -101,21 +105,17 @@ class Pets extends PluginBase {
         new Float("", $pitch)
     ]);
     $nbt->Health = new Short("Health", 20);
-    $nbt->Inventory = new Enum("Inventory", $inv);
+    $nbt->Inventory = new Enum("Inventory", $inv); //TODO v2 pets inventory
     $nbt->CustomName = new String("CustomName", $name);
     $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
-    $nbt->Invulnerable = new Byte("Invulnerable", 0);
-    $nbt->Skin = new Compound("Skin", [
-        "Data" => new String("Data", $skin),
-        "Name" => new String("Name", $skinName)
-    ]);
+    // $nbt->Invulnerable = new Byte("Invulnerable", 0);
     /* Name visible */
     $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
     return $nbt;
   }
   public function getPet($name) {
     if($this->provider instanceof PointlessManager);
-    $pet = $this->provider->getPetId($name); // TODO find the pet id by name then use the id to target the specific entity
+    $pet = $this->provider->getPetId($name);
     return $pet;
   }
   public function configProvider() {
