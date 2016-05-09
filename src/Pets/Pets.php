@@ -36,6 +36,8 @@ class Pets extends PluginBase {
   public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
     if($this->cfg instanceof Config);
     if($this->provider instanceof PointlessManager);
+    $pet = $this->getPet($sender->getName());
+    if($pet instanceof Entity);
     if(strtolower($command) === "pet" and $sender->hasPermission("pet.cmd")) {
       if((count($args) == 0 and $sender->hasPermission("pet.cmd.help")) or ($args[0] === "help" and $sender->hasPermission("pet.cmd.help"))) {
         $sender->sendMessage(TF::YELLOW."/pet help");
@@ -62,8 +64,6 @@ class Pets extends PluginBase {
         $sender->sendMessage(TF::GREEN."Pet Creation Failed!");
           return true;
       }elseif($args[0] === "disown" and $sender->hasPermission("pet.cmd.disown")) {
-        $pet = $this->getPet($sender->getName());
-        if($pet instanceof Entity);
         $pet->close();
       }elseif($args[0] === "rename" and $sender->hasPermission("pet.cmd.name")) {
         if($args[1] === "" or $args[1] === null) {
@@ -73,13 +73,17 @@ class Pets extends PluginBase {
           $sender->sendMessage(TF::RED."Pet renaming is Disabled!");
           return true;
         }
+        if($sender instanceof Player);
+        $pet->close();
+        $this->provider->removePet($pet->getId(),$sender->getName());
+        $nbt = $this->makeNBT(null, null, $args[1], null, $sender->getYaw(), $sender->getPitch(), $sender->getX(), $sender->getY(), $sender->getZ());
+        $petEntity = Entity::createEntity("PetWolf", $sender->getLevel()->getChunk($sender->getX() >> 4, $sender->getZ() >> 4), $nbt);
+        $this->provider->makePet($petEntity->getId(), $sender->getName(),$args[1]);
         $this->provider->setPetName($args[1], $sender->getName());
         $sender->sendMessage(TF::GREEN."Pet Renamed!");
         return true;
       }elseif($args[0] === "tp" and $sender->hasPermission("pet.cmd.tp")) {
         if($sender instanceof Player);
-        $pet = $this->getPet($sender->getName());
-        if($pet instanceof Entity);
         if($args[1] === null and $args[2] !== null) {
           $sender->sendMessage(TF::GREEN."Pet Teleporting...");
           $pet->teleport($sender->getPosition());
