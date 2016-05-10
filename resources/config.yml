@@ -1,13 +1,14 @@
 
-# PocketMine Pets by LostTeam (jasonwynn10@me.com, @jasonwynn10 for Twitter)
+# PocketMine Pets by LostTeam, jasonwynn10 and TheLucyClub
 
 ---
 # Setting for renaming pets
-allow-rename: true
+allow-rename: "true"
 # Data provider type
-# Available types are: Sqlite3 and Yaml
-dataProvider: Sqlite3
-# COMING SOON
+# Sqlite3 recommended for storage space
+# yaml recommended for Organization
+dataProvider: "Yaml" # TODO change to Sqlite3 for release
+# possible for V2 release
 # maximum-pets: 1
 # pet-cost: 100
 # data-sync: false

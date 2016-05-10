@@ -6,8 +6,8 @@
 - [x] Enable full use of config.yml
 - [x] Add help SubCommand
 - [x] Add pet spawn SubCommand
-- [ ] Add pet teleporing SubCommand
-- [x] Add pet renaming SubCommand
+- [ ] Add pet teleporting SubCommand
+- [ ] Add pet renaming SubCommand
 
 #### Beta Features:
 - [ ] Implement Dogs as pets not wolves
@@ -15,6 +15,6 @@
 - [ ] Have pet take the loot when owner kills another player (more pet AI)
 - [ ] Add pet inventory SubCommand
 - [ ] Restrict pet inventory access to owner
-- [ ] Drop a pets inventory in a chest if pet dies
+- [ ] Drops pet's inventory in a chest if the pet dies
 - [ ] Implement Cats as pets not ocelots
-- [ ] Allow players to give away pets with inventorys
+- [ ] Allow players to give away pets with inventories

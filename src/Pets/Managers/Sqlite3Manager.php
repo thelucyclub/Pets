@@ -1,6 +1,8 @@
 <?php
 namespace Pets\Managers;
+
 use Pets\Pets;
+
 class Sqlite3Manager implements PointlessManager{
     private $database, $Main;
     public function __construct(Pets $Main) {
@@ -15,27 +17,26 @@ class Sqlite3Manager implements PointlessManager{
 		)";
         $this->database->exec($sql);
     }
-    public function makePet($petOwner, $petName) {
+    public function makePet($id, $petOwner, $petName) {
         return $this->database->exec("INSERT INTO Pets (petOwner, petName) VALUES ('$petOwner', $petName)");
     }
-    public function getPetOwner($petName) {
-        $Owner = $this->selectByCondition(["petName" => $petName]);
-        return $Owner['petOwner'];
-    }
-    public function getOwnerPet($ownerName) {
-        $Pet = $this->selectByCondition(["petOwner" => $ownerName]);
+    public function getPetName($ownerName, $id) {
+        $Pet = $this->selectByCondition(["petOwner" => $ownerName, "petId" => $id]);
         return $Pet['petName'];
     }
-    public function setPetName($newName, $ownerName, $petName=null) {
-        if($petName != null) {
-            $sql = "UPDATE Pets SET petName='$newName' WHERE ownerName='$ownerName',petName='$petName'";
+    public function getPetId($Owner) {
+        $Owner = $this->selectByCondition(["ownerName" => $Owner]);
+        return $Owner['petId'];
+    }
+    public function setPetName($newName, $ownerName) {
+        if($ownerName != null) {
+            $sql = "UPDATE Pets SET petName='$newName' WHERE ownerName='$ownerName'";
             return $this->database->exec($sql);
         }
-        $sql = "UPDATE Pets SET petName='$newName' WHERE ownerName='$ownerName'";
-        return $this->database->exec($sql);
+        return false;
     }
-    public function removePet($petName) {
-        return $this->deleteByCondition(["petName" => $petName]);
+    public function removePet($petId, $ownerName) {
+        return $this->deleteByCondition(["petId" => $petId, "petOwner" => $ownerName]);
     }
     public function selectByCondition(array $condition) {
         $where = $this->formatCondition($condition);
