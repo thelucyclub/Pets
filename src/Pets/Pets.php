@@ -64,6 +64,7 @@ class Pets extends PluginBase {
         $sender->sendMessage(TF::GREEN."Pet Creation Failed!");
           return true;
       }elseif($args[0] === "disown" and $sender->hasPermission("pet.cmd.disown")) {
+        $this->provider->removePet($petEntity->getId(), $sender->getName(),$args[1]);
         $pet->close();
       }elseif($args[0] === "rename" and $sender->hasPermission("pet.cmd.name")) {
         if($args[1] === "" or $args[1] === null) {
