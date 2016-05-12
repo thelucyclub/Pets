@@ -1,9 +1,11 @@
 <?php
 namespace Pets;
+
 use pocketmine\entity\Entity;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\utils\TextFormat as TF;
 use pocketmine\Player;
+
 class PetWolf extends Entity implements PetEntity {
     public function getName() {
         return $this->getDataProperty(2);

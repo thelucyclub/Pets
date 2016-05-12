@@ -1,5 +1,6 @@
 <?php
 namespace Pets\Managers;
+
 interface PointlessManager {
     public function makePet($id, $petOwner, $petName);
     public function getPetName($ownerName, $id);

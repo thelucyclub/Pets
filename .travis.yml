@@ -1,7 +1,7 @@
 language: PHP
 
 php:
-  - 5.0
+  - 7.0
 
 branches:
   - master

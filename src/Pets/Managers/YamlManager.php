@@ -4,7 +4,7 @@ namespace Pets\Managers;
 use Pets\Pets;
 use pocketmine\utils\Config;
 
-class YamlManager implements PointlessManager{
+class YamlManager implements PointlessManager {
   private $PetsDataFolder, $Main, $OwnersDataFolder;
   public function __construct(Pets $Main) {
     $this->Main = $Main;

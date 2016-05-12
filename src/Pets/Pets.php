@@ -6,7 +6,6 @@ use Pets\Managers\Sqlite3Manager;
 use Pets\Managers\YamlManager;
 use Pets\Listener\EventListener;
 
-use pocketmine\nbt\tag\EnumTag;
 use pocketmine\plugin\PluginBase;
 use pocketmine\nbt\tag\ByteTag;
 use pocketmine\nbt\tag\ListTag;
@@ -65,6 +64,7 @@ class Pets extends PluginBase {
         $sender->sendMessage(TF::GREEN."Pet Creation Failed!");
           return true;
       }elseif($args[0] === "disown" and $sender->hasPermission("pet.cmd.disown")) {
+        $this->provider->removePet($pet->getId(), $sender->getName());
         $pet->close();
       }elseif($args[0] === "rename" and $sender->hasPermission("pet.cmd.name")) {
         if($args[1] === "" or $args[1] === null) {
@@ -120,8 +120,13 @@ class Pets extends PluginBase {
   }
   public function getPet($name) {
     if($this->provider instanceof PointlessManager);
-    $pet = $this->provider->getPetId($name);
-    return $pet;
+    $petId = $this->provider->getPetId($name);
+    foreach($this->getServer()->getLevels() as $level) {
+      if($level->getEntity($petId) != null) {
+        return $level->getEntity($petId);
+      }
+    }
+    return null;
   }
   public function configProvider() {
     if(!file_exists($this->getDataFolder())) {
