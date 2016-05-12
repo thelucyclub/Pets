@@ -120,8 +120,13 @@ class Pets extends PluginBase {
   }
   public function getPet($name) {
     if($this->provider instanceof PointlessManager);
-    $pet = $this->provider->getPetId($name);
-    return $pet;
+    $petId = $this->provider->getPetId($name);
+    foreach($this->getServer()->getLevels() as $level) {
+      if($level->getEntity($petId) != null) {
+        return $level->getEntity($petId);
+      }
+    }
+    return null;
   }
   public function configProvider() {
     if(!file_exists($this->getDataFolder())) {
