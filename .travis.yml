@@ -10,4 +10,4 @@ before_script:
   - echo Testing . . .
 
 script:
-  - echo Done !
+  - php ./travis/build.php
