@@ -9,7 +9,7 @@ use Pets\Pets;
 use pocketmine\event\Listener;
 use pocketmine\event\entity\EntityDeathEvent;
 use pocketmine\entity\Wolf;
-use pocketmine\entity\Ozelot;
+use pocketmine\entity\Ocelot;
 
 class EventListener implements Listener {
     public $Main, $provider;
