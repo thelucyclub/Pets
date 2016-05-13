@@ -1,8 +1,10 @@
 <?php
 namespace Pets;
+
 use pocketmine\entity\Entity;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\Player;
+
 class PetOcelot extends Entity implements PetEntity {
     const NETWORK_ID = -1;
     public function getName() {

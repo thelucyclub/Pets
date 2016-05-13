@@ -3,7 +3,7 @@ namespace Pets\Managers;
 
 use Pets\Pets;
 
-class Sqlite3Manager implements PointlessManager{
+class Sqlite3Manager implements PointlessManager {
     private $database, $Main;
     public function __construct(Pets $Main) {
         $this->Main = $Main;
