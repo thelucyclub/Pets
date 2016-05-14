@@ -36,6 +36,10 @@ class Pets extends PluginBase {
   public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
     if($this->cfg instanceof Config);
     if($this->provider instanceof PointlessManager);
+    if(!$sender instanceof Player) {
+      $sender->sendMessage(TF::DARK_RED."Console can't use the pet command!");
+      return true;
+    }
     $pet = $this->getPet($sender->getName());
     if($pet instanceof Entity);
     if(strtolower($command) === "pet" and $sender->hasPermission("pet.cmd")) {
@@ -148,6 +152,6 @@ class Pets extends PluginBase {
     }
   }
   public function onDisable() {
-    $this->getLogger()->notice(TF::GREEN."Enabled!");
+    $this->getLogger()->notice(TF::GREEN."Disabled!");
   }
 }
