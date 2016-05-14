@@ -1,7 +1,7 @@
 language: PHP
 
 php:
-  - 7.0
+  - 5.0
 
 branches:
   - master
@@ -10,4 +10,4 @@ before_script:
   - echo Testing . . .
 
 script:
-  - echo Done !
+  - Echo Success

@@ -11,7 +11,6 @@ use pocketmine\nbt\tag\ByteTag;
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\DoubleTag;
 use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\entity\Entity;
@@ -36,6 +35,10 @@ class Pets extends PluginBase {
   public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
     if($this->cfg instanceof Config);
     if($this->provider instanceof PointlessManager);
+    if(!$sender instanceof Player) {
+      $sender->sendMessage(TF::DARK_RED."Console can't use the pet command!");
+      return true;
+    }
     $pet = $this->getPet($sender->getName());
     if($pet instanceof Entity);
     if(strtolower($command) === "pet" and $sender->hasPermission("pet.cmd")) {
@@ -98,7 +101,7 @@ class Pets extends PluginBase {
     }
     return false;
   }
-  private function makeNBT($skin, $skinName, $name, $inv, $yaw, $pitch, $x, $y, $z) {
+  private function makeNBT($skin, $skinData, $name, $inv, $yaw, $pitch, $x, $y, $z) {
     $nbt = new CompoundTag;
     $nbt->Pos = new ListTag("Pos", [
         new DoubleTag("", $x),
@@ -148,6 +151,6 @@ class Pets extends PluginBase {
     }
   }
   public function onDisable() {
-    $this->getLogger()->notice(TF::GREEN."Enabled!");
+    $this->getLogger()->notice(TF::GREEN."Disabled!");
   }
 }

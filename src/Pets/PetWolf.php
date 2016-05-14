@@ -20,7 +20,7 @@ class PetWolf extends Entity implements PetEntity {
         $pk->yaw = $this->yaw;
         $pk->pitch = $this->pitch;
         $pk->metadata = [
-            2 => [4, str_ireplace("{name}", $player->getName(), str_ireplace("{display_name}", $player->getDisplayName(), $player->hasPermission("slapper.seeId") ? $this->getDataProperty(2) . "\n" . TF::GREEN . "Entity ID: " . $this->getId() : $this->getDataProperty(2)))],
+            2 => [4, str_ireplace("{name}", $player->getName(), str_ireplace("{display_name}", $player->getDisplayName(), $player->hasPermission("pet.seeId") ? $this->getDataProperty(2) . "\n" . TF::GREEN . "Entity ID: " . $this->getId() : $this->getDataProperty(2)))],
             3 => [0, $this->getDataProperty(3)],
             15 => [0, 1]
         ];

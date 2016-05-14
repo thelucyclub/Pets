@@ -6,8 +6,8 @@ author: "TheLucyClub & LostTeam"
 description: "Pets for PocketMine!"
 commands:
   pet:
-    usage: "/pet <Sub-Command|Help> [Sub-SubCommand]"
-    description: "Basic Pet Command"
+    usage: "/pet <Sub-Command|Help> [input]"
+    description: "Base Pet Command"
     permission: pet.cmd
 permissions:
   pet.cmd:
@@ -26,3 +26,6 @@ permissions:
       pet.cmd.help:
         default: true
         description: "general help permission"
+  pet.seeId:
+    default: true
+    description: "Permission for player to see their pets ID"
