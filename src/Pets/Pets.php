@@ -32,6 +32,13 @@ class Pets extends PluginBase {
     $this->getServer()->getPluginManager()->registerEvents(new EventListener($this, $this->provider), $this);
     $this->getLogger()->debug("Events have been registered!");
     $this->getLogger()->notice(TF::GREEN."Enabled!");
+    if($this->getServer()->getName() == "Genisys" || $this->getServer()->getName() == "ImagicalMine"){
+      $this->getLogger()->alert("Does not work on ImagicalMine or Genisys!");
+      $this->getPlugin()->disable;
+    }
+    if($this->getServer()->getName() == "iNET") {
+      $this->getLogger()->info(TF::YELLOW . "For being a loyal iNET user, bonus features enabled.")
+    }
   }
   public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
     if($this->cfg instanceof Config);
