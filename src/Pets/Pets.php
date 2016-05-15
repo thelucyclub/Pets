@@ -13,42 +13,57 @@ use pocketmine\nbt\tag\DoubleTag;
 use pocketmine\nbt\tag\FloatTag;
 use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
-use pocketmine\entity\Entity;
 use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\entity\Entity;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\math\Vector3;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat as TF;
 use pocketmine\Player;
 
 class Pets extends PluginBase {
-  public $Pets, $cfg, $provider;
+  public $cfg, $provider, $prefix = (TF::BLUE."[".TF::GREEN.TF::BOLD."Pets".TF::RESET.TF::BLUE."] ".TF::RESET);
   public function onEnable() {
     $this->configProvider();
     Entity::registerEntity(PetWolf::class, true);
-    Entity::registerEntity(PetOcelot::class, true);
+    // Entity::registerEntity(PetOcelot::class, true);
     $this->getLogger()->debug("Entities have been registered!");
     $this->getServer()->getPluginManager()->registerEvents(new EventListener($this, $this->provider), $this);
     $this->getLogger()->debug("Events have been registered!");
     $this->getLogger()->notice(TF::GREEN."Enabled!");
   }
   public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
-    if($this->cfg instanceof Config);
-    if($this->provider instanceof PointlessManager);
-    if(!$sender instanceof Player) {
-      $sender->sendMessage(TF::DARK_RED."Console can't use the pet command!");
-      return true;
-    }
-    $pet = $this->getPet($sender->getName());
-    if($pet instanceof Entity);
-    if(strtolower($command) === "pet" and $sender->hasPermission("pet.cmd")) {
-      if((count($args) == 0 and $sender->hasPermission("pet.cmd.help")) or ($args[0] === "help" and $sender->hasPermission("pet.cmd.help"))) {
+    if((strtolower($command) === "pet" or strtolower($command) === "pets")) {
+      if($this->cfg instanceof Config);
+      if($this->provider instanceof PointlessManager);
+      $pet = $this->getPet($sender->getName());
+      if($pet instanceof Entity);
+      if(!$sender instanceof Player) {
+        $sender->sendMessage($this->prefix.TF::YELLOW."Console Cannot Use Pets Command!");
+        return true;
+      }
+      if($args[0] === "clear") {
+        foreach($this->getServer()->getLevels() as $level) {
+          foreach($level->getEntities() as $entity) {
+            if($entity instanceof PetWolf) {
+              $entity->kill();
+            }
+            /* if($entity instanceof PetOcelot) {
+              $entity->kill();
+            } */
+          }
+        }
+        return true;
+      }
+      if((count($args) == 0 or $args[0] === "help") and $sender->hasPermission("pet.cmd.help")) {
+        $sender->sendMessage(TF::YELLOW."------------------".TF::BLUE."[".TF::GREEN.TF::BOLD."Pets".TF::RESET.TF::BLUE."]".TF::RESET.TF::YELLOW."-----------------");
         $sender->sendMessage(TF::YELLOW."/pet help");
-        $sender->sendMessage(TF::YELLOW."/pet disown");
         $sender->sendMessage(TF::YELLOW."/pet spawn <PetName>");
-        $sender->sendMessage(TF::YELLOW."/pet rename [PetName] <NewName>");
+        $sender->sendMessage(TF::YELLOW."/pet rename <NewName>");
         //$sender->sendMessage(TF::YELLOW."/pet items <add|Remove|List>");
         $sender->sendMessage(TF::YELLOW."/pet tp");
+        $sender->sendMessage(TF::YELLOW."/pets clear");
         return true;
       }
       if($args[0] === "spawn" and $sender->hasPermission("pet.cmd.make")) {
@@ -56,43 +71,40 @@ class Pets extends PluginBase {
           $sender->sendMessage(TF::RED."You need to name your pet!");
           return true;
         }
-        if($sender instanceof Player);
-        $nbt = $this->makeNBT($sender->getSkinData(), $sender->getSkinName(), $args[1], $sender->getInventory(), $sender->getYaw(), $sender->getPitch(), $sender->getX(), $sender->getY(), $sender->getZ());
+        if($pet !== null) {
+          $sender->sendMessage($this->prefix.TF::DARK_RED."You already have a pet!");
+          return true;
+        }
+        $nbt = $this->makeNBT(null, null, $sender->getName()."'s pet ".$args[1], null, $sender->getYaw(), $sender->getPitch(), $sender->getX(), $sender->getY(), $sender->getZ());
         $petEntity = Entity::createEntity("PetWolf", $sender->getLevel()->getChunk($sender->getX() >> 4, $sender->getZ() >> 4), $nbt);
         $this->provider->makePet($petEntity->getId(), $sender->getName(),$args[1]);
         if($petEntity) {
-          $sender->sendMessage(TF::GREEN."Pet Created!");
+          $sender->sendMessage($this->prefix.TF::GREEN."Pet Created!");
           return true;
         }
-        $sender->sendMessage(TF::GREEN."Pet Creation Failed!");
+        $sender->sendMessage($this->prefix.TF::GREEN."Pet Creation Failed!");
           return true;
-      }elseif($args[0] === "disown" and $sender->hasPermission("pet.cmd.disown")) {
-        $this->provider->removePet($pet->getId(), $sender->getName());
-        $pet->close();
       }elseif($args[0] === "rename" and $sender->hasPermission("pet.cmd.name")) {
         if($args[1] === "" or $args[1] === null) {
-          $sender->sendMessage(TF::RED."You need to name your pet!");
+          $sender->sendMessage($this->prefix.TF::RED."You need to name your pet!");
           return true;
         }elseif(strtolower($this->cfg->get("allow-rename")) === "false") {
-          $sender->sendMessage(TF::RED."Pet renaming is Disabled!");
+          $sender->sendMessage($this->prefix.TF::RED."Pet renaming is Disabled!");
           return true;
         }
-        if($sender instanceof Player);
-        $pet->close();
-        $this->provider->removePet($pet->getId(),$sender->getName());
-        $nbt = $this->makeNBT(null, null, $args[1], null, $sender->getYaw(), $sender->getPitch(), $sender->getX(), $sender->getY(), $sender->getZ());
-        $petEntity = Entity::createEntity("PetWolf", $sender->getLevel()->getChunk($sender->getX() >> 4, $sender->getZ() >> 4), $nbt);
-        $this->provider->makePet($petEntity->getId(), $sender->getName(),$args[1]);
-        $this->provider->setPetName($args[1], $sender->getName());
-        $sender->sendMessage(TF::GREEN."Pet Renamed!");
+        if($pet == null) {
+          $sender->sendMessage($this->prefix.TF::DARK_RED."You already have a pet!");
+          return true;
+        }
+        $pet->setNameTag($sender->getName()."'s pet ".$args[1]);
+        $sender->sendMessage($this->prefix.TF::GREEN."Pet Renamed!");
         return true;
-      }elseif($args[0] === "tp" and $sender->hasPermission("pet.cmd.tp")) {
-        if($sender instanceof Player);
+      }elseif(($args[0] === "tp" or $args[0] === "teleport") and $sender->hasPermission("pet.cmd.tp")) {
         if($args[1] === null and $args[2] !== null) {
-          $sender->sendMessage(TF::GREEN."Pet Teleporting...");
-          $pet->teleport($sender->getPosition());
-          $sender->sendMessage(TF::GREEN."Pet Teleported!");
-          // $sender->sendMessage(TF::RED."Functionality not implemented yet");
+          $position = new Vector3($sender->getX(), $sender->getY(), $sender->getZ());
+          $sender->sendMessage($this->prefix.TF::GREEN."Pet Teleporting...");
+          $pet->teleport($position);
+          $sender->sendMessage($this->prefix.TF::GREEN."Pet Teleported!");
           return true;
         }
         return true;
@@ -117,8 +129,6 @@ class Pets extends PluginBase {
     $nbt->CustomName = new StringTag("CustomName", $name);
     $nbt->CustomNameVisible = new ByteTag("CustomNameVisible", 1);
     // $nbt->Invulnerable = new Byte("Invulnerable", 0);
-    /* Name visible */
-    $nbt->CustomNameVisible = new ByteTag("CustomNameVisible", 1);
     return $nbt;
   }
   public function getPet($name) {
@@ -145,7 +155,7 @@ class Pets extends PluginBase {
       $this->provider = new YamlManager($this);
       $this->getLogger()->info("Using YAML data provider");
     }else{
-      $this->provider = new Sqlite3Manager($this);
+      $this->provider = new YamlManager($this);
       $this->getLogger()->info("Using SQLITE3 data provider");
       throw new \RuntimeException("Invalid data provider");
     }
